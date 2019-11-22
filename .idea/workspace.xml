@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/App.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/db1start/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/db1start/Tranferencias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/Tranferencias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/db1start/Transferir.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/Transferir.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +42,11 @@
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574366061116" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.db1start" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

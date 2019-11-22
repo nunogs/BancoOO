@@ -24,9 +24,22 @@ public class App extends Transferir {
         System.out.println(c1.verSaldo());
         System.out.println(c2.verSaldo());
 
-        c1.extrato().forEach(f -> System.out.println(f));
+        extrato(c1);
+        extrato(c2);
 
 
     }
+
+    private static void extrato(ContaCorrente conta) {
+        separar();
+        conta.extrato().forEach(f -> System.out.println(f));
+        separar();
+    }
+
+    private static void separar() {
+        System.out.println(" ");
+        System.out.println("---------------------------------------------------------------------");
+    }
+
 
 }
