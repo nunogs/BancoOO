@@ -7,8 +7,8 @@ public class ContaCorrente {
     private String dono;
     private Boolean aberta;
     private Double saldo;
-    private ArrayList<String> transacoes = new ArrayList<>();
-
+    public ArrayList<String> transacoes = new ArrayList<>();
+    private ArrayList<String> transferenciasFeitas = new ArrayList<>();
 
     // Construtor
     public ContaCorrente(Integer nConta, String dono) {
@@ -30,7 +30,7 @@ public class ContaCorrente {
 
     public String depositar(Double deposito){
         setSaldo(getSaldo()+ deposito);
-        String depositoOk = "Deposito de: "+ deposito + " feito com sucesso.";
+        String depositoOk = "Deposito de: "+ deposito + " feito com sucesso. ";
         transacoes.add(depositoOk);
         return depositoOk;
     }
@@ -39,60 +39,70 @@ public class ContaCorrente {
     public String sacar(Double saque){
         if(getSaldo() >= saque){
             setSaldo(getSaldo() - saque);
-            String saqueOk = "Saque de " + saque.toString() + "realizado.";
+            String saqueOk = "Saque de " + saque.toString() + " realizado. ";
             transacoes.add(saqueOk);
             return saqueOk;
         }else{
-            return "Não foi possivel sacar, verSaldo insuficiente";
+            return "Não foi possivel sacar, verSaldo insuficiente ";
         }
     }
-    public String trasferir(Double transferencia){
-        if(getSaldo() >= transferencia){
+
+    public String transferir(ContaCorrente conta2 , Double transferencia){
+        if(this.getSaldo() >= transferencia){
             setSaldo(getSaldo() - transferencia);
-            String transferenciaOk = "Transferencia de " + transferencia + "realizada.";
+            String transferenciaOk = "Transferencia de " + transferencia + "realizada. "+ "\n";
             transacoes.add(transferenciaOk);
             return transferenciaOk;
         }else{
             return "Não foi possivel transferir, verSaldo insuficiente";
         }
     }
+
     public String verSaldo(){
         if (this.getAberta()) {
             return getSaldo().toString();
         }else {
-            return "Impossivel ver verSaldo de uma conta FECHADA";
+            return "Impossivel ver saldo de uma conta FECHADA";
         }
     }
 
-    public ArrayList<String> extrato (){
-        if (this.getAberta()) {
-            String contAberta;
-                if (getAberta()){
-                    contAberta = "Conta aberta";
-                }else{
-                    contAberta = "Conta fechada";
-                }
-            ArrayList<String> extratoLista = new ArrayList<>();
-            String conta =("Conta nº: " + this.getnConta());
-            String dono = ("Titular: " + this.getDono());
-            String contaAberta =("Stado da conta: " + contAberta);
-            String saldo = ("Saldo final: " + this.getSaldo());
-            extratoLista.addAll(Arrays.asList(conta,dono,contaAberta, saldo));
-            return (extratoLista);
+    public String extratoBasico(){
+        String contAberta;
+        if (this.getAberta()){
+            contAberta = "Conta aberta";
         }else{
-            ArrayList<String> extrato = new ArrayList<>(1);
-            extrato.add("Impossivel ver extrato de uma conta FECHADA");
-            return extrato;
+            contAberta = "Conta fechada";
         }
+
+        String extrato = ("Titular: " + this.getDono() + "\n" + "Conta corrente: " + this.getnConta() + "\n"
+                + "Status da conta: " + contAberta + "\n");
+        return extrato;
     }
 
-    //Getters e Setters
 
-    private ArrayList<String> getTransacoes() {
+//    protected void tranferir(ContaCorrente conta1, ContaCorrente conta2, double valor) {
+//        conta1.transferir(valor);
+//        conta2.depositar(valor);
+//
+//        separarTransferencias(conta1, conta2);
+//    }
+
+    private void separarTransferencias(ContaCorrente conta1, ContaCorrente conta2) {
+        transferenciasFeitas.add("Conta " + conta1 + " transferiu para " + conta2);
+        transferenciasFeitas.add("Conta " + conta2 + " recebeu de " + conta1);
+
+    }
+
+    public ArrayList<String> getTransferenciasFeitas() {
+        return transferenciasFeitas;
+    }
+
+
+    public ArrayList<String> getTransacoes() {
         return transacoes;
     }
 
-    private void setTransacoes(ArrayList<String> transacoes) {
+    public void setTransacoes(ArrayList<String> transacoes) {
         this.transacoes = transacoes;
     }
 

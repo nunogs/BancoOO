@@ -9,7 +9,7 @@ public class App extends Transferir {
         ContaCorrente c4 = new ContaCorrente(4, "Roberto");
 
 //        System.out.println(c1.verSaldo());
-//        System.out.println(c1.extrato());
+//        System.out.println(c1.extratoBasico());
 
         c1.abrirConta();
         c2.abrirConta();
@@ -20,25 +20,26 @@ public class App extends Transferir {
         c1.depositar(15.00);
         c1.sacar(15.00);
 
-        tranferir(c1, c2,100.00);
+        c1.transferir(c2,100.00);
         System.out.println(c1.verSaldo());
         System.out.println(c2.verSaldo());
 
         extrato(c1);
         extrato(c2);
 
-
     }
 
     private static void extrato(ContaCorrente conta) {
         separar();
-        conta.extrato().forEach(f -> System.out.println(f));
+        System.out.println(conta.extratoBasico());
+        conta.transacoes.forEach(n -> System.out.println(n));
+        System.out.println("Saldo final: " + conta.verSaldo());
         separar();
     }
 
     private static void separar() {
         System.out.println(" ");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------------");
     }
 
 
