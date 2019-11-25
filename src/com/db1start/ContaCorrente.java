@@ -1,5 +1,7 @@
 package com.db1start;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ContaCorrente {
@@ -7,10 +9,20 @@ public class ContaCorrente {
     private String dono;
     private Boolean aberta;
     private Double saldo;
-    public ArrayList<String> transacoes = new ArrayList<>();
+    private ArrayList<String> transacoes = new ArrayList<>();
     private ArrayList<String> transferenciasFeitas = new ArrayList<>();
 
+    public static String getData() {
+        DateFormat dataPtBr = new SimpleDateFormat("dd/MM/yyyy" + " " + "hh:mm");
+        Calendar calendar = Calendar.getInstance();
+        return dataPtBr.format(calendar.getTime());
+    }
+
     // Construtor
+
+    public ContaCorrente() {
+    }
+
     public ContaCorrente(Integer nConta, String dono) {
         this.setnConta(nConta);
         this.setDono(dono);
@@ -29,32 +41,40 @@ public class ContaCorrente {
     }
 
     public String depositar(Double deposito){
-        setSaldo(getSaldo()+ deposito);
-        String depositoOk = "Deposito de: "+ deposito + " feito com sucesso. ";
-        transacoes.add(depositoOk);
+        this.setSaldo(getSaldo()+ deposito);
+        String depositoOk = this.getData() + "    Deposito comum "  + "                                                     " + "+R$:" + deposito ;
+        this.transacoes.add(depositoOk);
         return depositoOk;
     }
-
+    public String depositar(Double deposito, ContaCorrente conta2){
+        this.setSaldo(getSaldo()+ deposito);
+        String depositoOk = this.getData() + "    Deposito recebido por transferencia da conta nº: " + conta2.getnConta() + "                " + "+R$:" + deposito ;
+        this.transacoes.add(depositoOk);
+        return depositoOk;
+    }
 
     public String sacar(Double saque){
         if(getSaldo() >= saque){
             setSaldo(getSaldo() - saque);
-            String saqueOk = "Saque de " + saque.toString() + " realizado. ";
+            String saqueOk = this.getData() + "    Saque de realizado "  + "                                                 " + "-RS:"+ saque;
             transacoes.add(saqueOk);
             return saqueOk;
         }else{
-            return "Não foi possivel sacar, verSaldo insuficiente ";
+            return "Não foi possivel sacar, saldo insuficiente ";
         }
     }
 
-    public String transferir(ContaCorrente conta2 , Double transferencia){
+    public String realizarTransferencia(ContaCorrente conta1, ContaCorrente conta2 , Double transferencia){
         if(this.getSaldo() >= transferencia){
-            setSaldo(getSaldo() - transferencia);
-            String transferenciaOk = "Transferencia de " + transferencia + "realizada. "+ "\n";
+            this.setSaldo(getSaldo() - transferencia);
+            conta2.depositar(transferencia, conta1);
+
+            String transferenciaOk =  this.getData() + "    Transferencia comum para a conta nº: " + conta2.getnConta()
+                    +"                            " +  "-R$:" + transferencia  +"\n";
             transacoes.add(transferenciaOk);
             return transferenciaOk;
         }else{
-            return "Não foi possivel transferir, verSaldo insuficiente";
+            return "Não foi possivel transferir, saldo insuficiente";
         }
     }
 
@@ -66,7 +86,7 @@ public class ContaCorrente {
         }
     }
 
-    public String extratoBasico(){
+    public String extratoParte1(){
         String contAberta;
         if (this.getAberta()){
             contAberta = "Conta aberta";
@@ -106,35 +126,35 @@ public class ContaCorrente {
         this.transacoes = transacoes;
     }
 
-    private Integer getnConta() {
+    public Integer getnConta() {
         return nConta;
     }
 
-    private void setnConta(Integer nConta) {
+    public void setnConta(Integer nConta) {
         this.nConta = nConta;
     }
 
-    private String getDono() {
+    public String getDono() {
         return dono;
     }
 
-    private void setDono(String dono) {
+    public void setDono(String dono) {
         this.dono = dono;
     }
 
-    private Boolean getAberta() {
+    public Boolean getAberta() {
         return aberta;
     }
 
-    private void setAberta(Boolean aberta) {
+    public void setAberta(Boolean aberta) {
         this.aberta = aberta;
     }
 
-    private Double getSaldo() {
+    public Double getSaldo() {
         return saldo;
     }
 
-    private void setSaldo(Double saldo) {
+    public void setSaldo(Double saldo) {
         this.saldo = saldo;
     }
 
