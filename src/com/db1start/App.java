@@ -1,45 +1,21 @@
 package com.db1start;
 
-import static com.db1start.ContaCorrente.getData;
-
 public class App {
-    public static void transferir(ContaCorrente conta1, ContaCorrente conta2, Double valor){
-        conta1.realizarTransferencia(conta1, conta2,100.00);
-    }
 
-    private static void extrato(ContaCorrente conta) {
+    // Para acessar os dados do cliente precisa passar por dentro da conta, um metodo de manter os dados vinculados
+    // porem o cliente pode ter mais de duas contas para que
+    // futuramente o codigo pode ter acrescentado tipos de contas (como conta pj ou conta poupança)
+    // sem que hajam tantos problemas de implementação.
 
-        separar();
-        System.out.println(conta.extratoParte1());
-        conta.getTransacoes().forEach(n -> System.out.println(n));
-        System.out.println(" ");
-        System.out.println(getData() + "    Saldo até esta data "
-                +"                                                " +" R$:"+ conta.verSaldo());
-        separar();
-    }
 
-    private static void separar() {
-        System.out.println(" ");
-        System.out.println("-------------------------------------------------------------------------------------------------");
-    }
-    
     public static void main(String[] args) {
+        ContaCorrente c1 = new ContaCorrente(101,"Bruno", "0511115684841", true);
+        ContaCorrente c2 = new ContaCorrente(202, "Amanda", "041616566616", true);
+        ContaCorrente c3 = new ContaCorrente(303, "Pedro", "0619875684841", false);
 
-        ContaCorrente c1 = new ContaCorrente(101, "Bruno");
-        ContaCorrente c2 = new ContaCorrente(202, "Amanda");
-        ContaCorrente c3 = new ContaCorrente(303, "Pedro");
-        ContaCorrente c4 = new ContaCorrente(404, "Roberto");
-        ContaCorrente c5 = new ContaCorrente(505, "Sandra");
-        ContaCorrente c6 = new ContaCorrente(606, "João");
-        ContaCorrente c7 = new ContaCorrente(707, "Maria");
-        ContaCorrente c8 = new ContaCorrente(808, "Izabela");
-        ContaCorrente c9 = new ContaCorrente(909, "Ana");
+//        c1.depositar(00.00);
+//        c3.depositar(100.00);
 
-//        System.out.println(c1.verSaldo());
-//        System.out.println(c1.extratoBasico());
-
-        c1.abrirConta();
-        c2.abrirConta();
 
         c1.depositar(100.00);
         c1.depositar(200.00);
@@ -50,12 +26,21 @@ public class App {
         c2.depositar(30.00);
         c1.sacar(10.00);
 
-        transferir(c1, c2,100.00);
+        Controle.transferir(c1, c2,100.00);
 //        System.out.println(c1.verSaldo());
 //        System.out.println(c2.verSaldo());
 
-        extrato(c1);
-        extrato(c2);
+        Controle.extrato(c1);
+        Controle.extrato(c2);
+
+
+        // Para acessar os dados do cliente precisa passar por dentro da conta, um metodo de manter os dados vinculados
+        // porem o cliente pode ter mais de duas contas para que
+        // futuramente o codigo pode ter acrescentado tipos de contas (como conta pj ou conta poupança)
+        // sem que hajam tantos problemas de implementação.
+
+
+        System.out.println(c1.getCliente().getNome());
 
     }
 }

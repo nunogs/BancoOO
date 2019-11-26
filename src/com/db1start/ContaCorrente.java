@@ -5,71 +5,97 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ContaCorrente {
-    private Integer nConta;
-    private String dono;
-    private Boolean aberta;
+    private Integer numeroDaConta;
+    private Cliente cliente;
+    private String nomeTitular;
+    private Boolean contaAbertaOuFechada;
     private Double saldo;
     private ArrayList<String> transacoes = new ArrayList<>();
     private ArrayList<String> transferenciasFeitas = new ArrayList<>();
 
-    public static String getData() {
-        DateFormat dataPtBr = new SimpleDateFormat("dd/MM/yyyy" + " " + "hh:mm");
-        Calendar calendar = Calendar.getInstance();
-        return dataPtBr.format(calendar.getTime());
-    }
+
 
     // Construtor
 
-    public ContaCorrente() {
-    }
+    public ContaCorrente(Integer numeroDaConta, String cliente, String cpf, Boolean abrirConta) {
 
-    public ContaCorrente(Integer nConta, String dono) {
-        this.setnConta(nConta);
-        this.setDono(dono);
+        if(testadorDeNulo(numeroDaConta)){
+            throw new CampoNaoPodeSerNulo( "Numero da conta não pode ser nulo");
+        }
+        if(testadorDeNulo(cliente)){
+            throw new CampoNaoPodeSerNulo( "Nome do cliente não pode ser nulo");
+        }
+        if(testadorDeNulo(cpf)){
+            throw new CampoNaoPodeSerNulo( "Cpf não pode ser nulo");
+        }
+        if(testadorDeNulo(abrirConta)){
+            throw new CampoNaoPodeSerNulo( "Campo 'abrir conta' não pode ser nulo");
+        }
 
-        testadorDeNulo(nConta, "Numero da conta");
-        testadorDeNulo(dono, "Dono da conta");
+        this.contaAbertaOuFechada = abrirConta;
 
-        this.setSaldo(0.0);
-        this.setAberta(false);
+        this.nomeTitular = cliente;
+        this.numeroDaConta = numeroDaConta;
+        this.cliente = new Cliente(this , numeroDaConta, cliente, cpf, abrirConta);
+
+
+
+        this.saldo = 0.0;
     }
 
 
     //Metodos especiais
-    public void abrirConta(){
-        setAberta(true);
-    }
 
     public String depositar(Double deposito){
-        this.setSaldo(getSaldo()+ deposito);
+        if(testadorDeNulo(deposito)){
+            throw new CampoNaoPodeSerNulo( "Deposito não pode ser nulo");
+        }
+        if(!contaAbertaOuFechada){
+            throw new CampoNaoPodeSerNulo( "Impossivel depositar em uma conta fechada");
+        }
+        this.saldo += deposito;
         String depositoOk = this.getData() + "    Deposito comum "  + "                                                     " + "+R$:" + deposito ;
         this.transacoes.add(depositoOk);
         return depositoOk;
     }
-    public String depositar(Double deposito, ContaCorrente conta2){
-        this.setSaldo(getSaldo()+ deposito);
-        String depositoOk = this.getData() + "    Deposito recebido por transferencia da conta nº: " + conta2.getnConta() + "                " + "+R$:" + deposito ;
+    public String depositarPorTransferencia(Double deposito, ContaCorrente conta2){
+        if(testadorDeNulo(deposito)){
+            throw new CampoNaoPodeSerNulo( "Deposito não pode ser nulo");
+        }
+        if(!contaAbertaOuFechada){
+            throw new CampoNaoPodeSerNulo( "Impossivel depositar em uma conta fechada");
+        }
+        this.saldo += deposito;
+        String depositoOk = this.getData() + "    Deposito recebido por transferencia da conta nº: " + conta2.getNumeroDaConta() + "                " + "+R$:" + deposito ;
         this.transacoes.add(depositoOk);
         return depositoOk;
     }
 
     public String sacar(Double saque){
-        if(getSaldo() >= saque){
-            setSaldo(getSaldo() - saque);
+        if(testadorDeNulo(saque)){
+            throw new CampoNaoPodeSerNulo( "Valor do saque não pode ser nulo");
+        }
+        if(this.saldo >= saque){
+            this.saldo -= saque;
             String saqueOk = this.getData() + "    Saque de realizado "  + "                                                 " + "-RS:"+ saque;
             transacoes.add(saqueOk);
             return saqueOk;
         }else{
-            return "Não foi possivel sacar, saldo insuficiente ";
+            return "Não foi possivel sacar, saldo insuficiente";
         }
     }
 
     public String realizarTransferencia(ContaCorrente conta1, ContaCorrente conta2 , Double transferencia){
-        if(this.getSaldo() >= transferencia){
-            this.setSaldo(getSaldo() - transferencia);
-            conta2.depositar(transferencia, conta1);
-
-            String transferenciaOk =  this.getData() + "    Transferencia comum para a conta nº: " + conta2.getnConta()
+        if(testadorDeNulo(transferencia)){
+            throw new CampoNaoPodeSerNulo( "Valor da transferencia não pode ser nulo");
+        }
+        if(!conta2.getContaAbertaOuFechada()){
+            throw new CampoNaoPodeSerNulo( "Impossivel depositar em uma conta fechada");
+        }
+        if(this.saldo >= transferencia){
+            this.saldo -= - transferencia;
+            conta2.depositarPorTransferencia(transferencia, conta1);
+            String transferenciaOk =  this.getData() + "    Transferencia comum para a conta nº: " + conta2.getNumeroDaConta()
                     +"                            " +  "-R$:" + transferencia  +"\n";
             transacoes.add(transferenciaOk);
             return transferenciaOk;
@@ -79,8 +105,9 @@ public class ContaCorrente {
     }
 
     public String verSaldo(){
-        if (this.getAberta()) {
-            return getSaldo().toString();
+
+        if (this.contaAbertaOuFechada) {
+            return this.saldo.toString();
         }else {
             return "Impossivel ver saldo de uma conta FECHADA";
         }
@@ -88,80 +115,75 @@ public class ContaCorrente {
 
     public String extratoParte1(){
         String contAberta;
-        if (this.getAberta()){
+        if (this.contaAbertaOuFechada){
             contAberta = "Conta aberta";
         }else{
             contAberta = "Conta fechada";
         }
 
-        String extrato = ("Titular: " + this.getDono() + "\n" + "Conta corrente: " + this.getnConta() + "\n"
+        String extrato = ("Titular: " + this.cliente.getNome() + "\n" + "Conta corrente: " + this.numeroDaConta + "\n"
                 + "Status da conta: " + contAberta + "\n");
         return extrato;
     }
 
+    public String fecharConta(){
+        if (this.saldo < 0.0 ){
+            throw new RuntimeException("Impossivel fechar conta com credito aberto." +
+                    " Favor quitar déficit antes de fechar a conta. ");
+        }else if(this.saldo > 0.0){
+            throw new RuntimeException("Impossivel fechar conta com saldo positivo." +
+                    " Favor sacar todo capital antes de fechar a conta. ");
+        }
+        this.contaAbertaOuFechada = false;
+        String movimentoOk = "Conta fechada com sucesso no dia " + getData();
+        return movimentoOk;
+    }
 
-//    protected void tranferir(ContaCorrente conta1, ContaCorrente conta2, double valor) {
-//        conta1.transferir(valor);
-//        conta2.depositar(valor);
-//
-//        separarTransferencias(conta1, conta2);
-//    }
+    // METOTDOS ACESSORES
 
-    private void separarTransferencias(ContaCorrente conta1, ContaCorrente conta2) {
-        transferenciasFeitas.add("Conta " + conta1 + " transferiu para " + conta2);
-        transferenciasFeitas.add("Conta " + conta2 + " recebeu de " + conta1);
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public String getNomeTitular() {
+        return nomeTitular;
     }
 
     public ArrayList<String> getTransferenciasFeitas() {
         return transferenciasFeitas;
     }
 
+    public static String getData() {
+        DateFormat dataPtBr = new SimpleDateFormat("dd/MM/yyyy" + " " + "hh:mm");
+        Calendar calendar = Calendar.getInstance();
+        return dataPtBr.format(calendar.getTime());
+    }
 
     public ArrayList<String> getTransacoes() {
         return transacoes;
     }
 
-    public void setTransacoes(ArrayList<String> transacoes) {
-        this.transacoes = transacoes;
+    public Integer getNumeroDaConta() {
+        return numeroDaConta;
     }
 
-    public Integer getnConta() {
-        return nConta;
-    }
-
-    public void setnConta(Integer nConta) {
-        this.nConta = nConta;
-    }
-
-    public String getDono() {
-        return dono;
-    }
-
-    public void setDono(String dono) {
-        this.dono = dono;
-    }
-
-    public Boolean getAberta() {
-        return aberta;
-    }
-
-    public void setAberta(Boolean aberta) {
-        this.aberta = aberta;
+    public Boolean getContaAbertaOuFechada() {
+        return contaAbertaOuFechada;
     }
 
     public Double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
-    }
+
 
     //Outros Metodos
-    private void testadorDeNulo(Object variavel, String campo) {
-        if (variavel == null) {
-            throw new CampoNaoPodeSerNulo( campo +" não pode ser nulo");
+    private Boolean testadorDeNulo(Object variavel) {
+        if (variavel == null || variavel.equals(" ") || variavel.equals(0.0))  {
+            return true;
+        }else{
+            return false;
         }
     }
 

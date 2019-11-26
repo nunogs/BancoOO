@@ -3,16 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a25d8b27-0b53-46a7-ad63-6f6f5f48a3a6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BancoOO.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BancoOO.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BancoOO/META-INF/BancoOO.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/CampoNaoPodeSerNulo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/CampoNaoPodeSerNulo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/ContaCorrente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/ContaCorrente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/Transferir.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/db1start/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/db1start/CampoNaoPodeSerNulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/CampoNaoPodeSerNulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/ContaCorrenteTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BancoOO/com/db1start/ContaCorrenteTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/db1start/App.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/db1start/ContaCorrente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/ContaCorrente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/db1start/Transferir.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/db1start/ContaCorrenteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/db1start/ContaCorrenteTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,7 +41,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Lab" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -53,6 +49,9 @@
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="com.db1start" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="com.db1start.Controle" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -99,7 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContaCorrenteTest.deveDepositar11ReaisE11Centavos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContaCorrenteTest.deveAbrirConta" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BancoOO" />
       <extension name="coverage">
         <pattern>
@@ -109,13 +108,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.db1start" />
       <option name="MAIN_CLASS_NAME" value="com.db1start.ContaCorrenteTest" />
-      <option name="METHOD_NAME" value="deveDepositar11ReaisE11Centavos" />
+      <option name="METHOD_NAME" value="deveAbrirConta" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContaCorrenteTest.deveSacar11ReaisE11Centavos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContaCorrenteTest.deveCriarAlunoPorMeioDoConstrutor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BancoOO" />
       <extension name="coverage">
         <pattern>
@@ -125,13 +124,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.db1start" />
       <option name="MAIN_CLASS_NAME" value="com.db1start.ContaCorrenteTest" />
-      <option name="METHOD_NAME" value="deveSacar11ReaisE11Centavos" />
+      <option name="METHOD_NAME" value="deveCriarAlunoPorMeioDoConstrutor" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ContaCorrenteTest.deveSacar11ReaisE11CentavosERetornar88e89" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ContaCorrenteTest.deveFecharConta" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BancoOO" />
       <extension name="coverage">
         <pattern>
@@ -141,7 +140,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.db1start" />
       <option name="MAIN_CLASS_NAME" value="com.db1start.ContaCorrenteTest" />
-      <option name="METHOD_NAME" value="deveSacar11ReaisE11CentavosERetornar88e89" />
+      <option name="METHOD_NAME" value="deveFecharConta" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,10 +149,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
-        <item itemvalue="JUnit.ContaCorrenteTest.deveSacar11ReaisE11CentavosERetornar88e89" />
-        <item itemvalue="JUnit.ContaCorrenteTest.deveSacar11ReaisE11Centavos" />
         <item itemvalue="JUnit.ContaCorrenteTest" />
-        <item itemvalue="JUnit.ContaCorrenteTest.deveDepositar11ReaisE11Centavos" />
+        <item itemvalue="JUnit.ContaCorrenteTest.deveFecharConta" />
+        <item itemvalue="JUnit.ContaCorrenteTest.deveAbrirConta" />
+        <item itemvalue="JUnit.ContaCorrenteTest.deveCriarAlunoPorMeioDoConstrutor" />
       </list>
     </recent_temporary>
   </component>
